@@ -58,6 +58,8 @@
         margin: 1.5rem 1rem 0 0;
         transition: .3s all;
         width: 250px;
+        transition: .3s all;
+        cursor: pointer;
 
         @media (max-width:414px) {
           width: 100%;

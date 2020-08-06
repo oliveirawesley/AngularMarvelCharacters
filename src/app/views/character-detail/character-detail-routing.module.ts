@@ -1,12 +1,12 @@
-import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { NgModule } from "@angular/core";
+import { Routes, RouterModule } from "@angular/router";
 
-import { CharacterDetailComponent } from './character-detail.component';
+import { CharacterDetailComponent } from "./character-detail.component";
 
-const routes: Routes = [{ path: '', component: CharacterDetailComponent }];
+const routes: Routes = [{ path: ":id", component: CharacterDetailComponent }];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class CharacterDetailRoutingModule { }
+export class CharacterDetailRoutingModule {}

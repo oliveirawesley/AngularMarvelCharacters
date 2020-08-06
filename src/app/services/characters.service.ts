@@ -26,6 +26,18 @@ export class CharactersService {
     );
   }
 
+  public getDetail(body, id): Observable<any> {
+    const timeStamp = Number(new Date());
+
+    const hash = `${timeStamp}${environment.PRIVATE_KEY}${environment.PUBLIC_KEY}`;
+
+    return this.api.get(
+      `characters/${id}?ts=${timeStamp}&apikey=${
+        environment.PUBLIC_KEY
+      }&hash=${Md5.hashStr(hash)}`
+    );
+  }
+
   public search(searchTerm, body): Observable<any> {
     const timeStamp = Number(new Date());
 

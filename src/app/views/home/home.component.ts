@@ -19,6 +19,8 @@ export class HomeComponent implements OnInit {
   constructor(private charactersService: CharactersService) {}
 
   ngOnInit(): void {
+    window.scrollTo(0, 0);
+
     this.body = {
       total: 0,
       orderBy: "name",

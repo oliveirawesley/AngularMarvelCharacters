@@ -11,7 +11,7 @@
       </div>
     </div>
     <div class="cards" *ngIf="!isLoading">
-      <div class="card" *ngFor="let c of characters">
+      <div class="card" *ngFor="let c of characters" routerLink="/character-detail/{{c.id}}">
         <app-character-card [image]="c.thumbnail.path" [extension]="c.thumbnail.extension" [title]="c.name"
           [description]="c.description | slice: 0:60" [subtitle]="c.name">
         </app-character-card>

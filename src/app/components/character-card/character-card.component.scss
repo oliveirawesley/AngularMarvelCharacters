@@ -7,7 +7,13 @@
   flex-direction: column;
   height: 220px;
   width: 100%;
+  transition: .1s all;
   border-bottom-color: var(--primary);
+
+  &:hover {
+    transition: .1s all;
+    border-bottom: 2px solid var(--primary);
+  }
 
   img {
     border-radius: 100%;
