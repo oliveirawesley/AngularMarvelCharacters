@@ -1,0 +1,30 @@
+<section class="home">
+  <div class="content">
+    <h1>Characters</h1>
+    <div class="search">
+      <input type="search" placeholder="Find a Character (Type at Least Three Characters)"
+        (keyup)="findACharacter($event)" (search)="clearSearch()" />
+      <div class="filter" (click)="reorder()">
+        <img src="../../assets/filter.svg" alt="Filter Icon" />
+        <small>{{ crescent ? 'A-Z' : 'Z-A'}}</small>
+        <i [ngClass]="(crescent) ? 'fas fa-chevron-up' : 'fas fa-chevron-down'"></i>
+      </div>
+    </div>
+    <div class="cards" *ngIf="!isLoading">
+      <div class="card" *ngFor="let c of characters">
+        <app-character-card [image]="c.thumbnail.path" [extension]="c.thumbnail.extension" [title]="c.name"
+          [description]="c.description | slice: 0:60" [subtitle]="c.name">
+        </app-character-card>
+      </div>
+    </div>
+    <app-character-notfound *ngIf="!isLoading && characters.length === 0"></app-character-notfound>
+    <app-cards-loading *ngIf="isLoading"></app-cards-loading>
+    <div class="paginacao" *ngIf="!isLoading && characters.length > 0">
+      <button type="button" [disabled]="body.offset === 0" (click)="prevPage()"><i
+          class="fas fa-chevron-left"></i></button>
+      <small><b>{{ body.offset + 1}}</b> até <b>{{ size}}</b> de {{ body.total}}</small>
+      <button type="button" [disabled]="body.total <= 12" (click)="nextPage()"><i
+          class="fas fa-chevron-right"></i></button>
+    </div>
+  </div>
+</section>

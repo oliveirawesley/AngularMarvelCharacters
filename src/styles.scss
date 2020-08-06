@@ -1,1 +1,46 @@
-/* You can add global styles to this file, and also import other style files */
+// Global Reset Styles
+* {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: none;
+  text-decoration: none;
+  box-sizing: border-box;
+  font-family: 'Roboto', sans-serif;
+}
+
+//Chrome scroll bar color
+
+body::-webkit-scrollbar-track {
+  border-radius: 1px;
+  background-color: var(--whitesmoke);
+}
+
+body::-webkit-scrollbar {
+  width: 7px;
+  background-color: var(--primary);
+}
+
+body::-webkit-scrollbar-thumb {
+  border-radius: 1px;
+  background-color: var(--primary);
+}
+
+
+// Global Colors Variables
+:root {
+  --primary: #ED1D24;
+  --white: #FFFFFF;
+  --light-gray: #EDEEF0;
+  --gray: #E6E7E8;
+  --dark-gray: #4A4A4A;
+  --whitesmoke: #F4F8FB;
+  --border-gray: #D8DDE6;
+}
+
+//Cronical bug resolved
+@media (max-width:414px) {
+  span.loader.progress {
+    width: 100% !important;
+  }
+}
