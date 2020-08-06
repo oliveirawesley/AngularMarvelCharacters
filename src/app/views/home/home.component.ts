@@ -36,7 +36,6 @@ export class HomeComponent implements OnInit {
     this.charactersService.get(this.body).subscribe((data: any) => {
       this.characters = data[`data`][`results`];
       this.body.total = data[`data`][`total`];
-      this.size = this.body.total;
       setTimeout(() => {
         this.isLoading = false;
       }, 1000);
@@ -86,6 +85,7 @@ export class HomeComponent implements OnInit {
 
   clearSearch() {
     this.filtered = false;
+    this.size = 10;
     this.loadCharacters();
   }
 }
