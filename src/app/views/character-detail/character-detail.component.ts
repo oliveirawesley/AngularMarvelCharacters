@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import { CharactersService } from "src/app/services/characters.service";
+import { Body } from "src/app/models/body.model";
 
 @Component({
   selector: "app-character-detail",
@@ -9,7 +10,7 @@ import { CharactersService } from "src/app/services/characters.service";
 })
 export class CharacterDetailComponent implements OnInit {
   characterId: string;
-  body: {};
+  body: Body;
 
   constructor(
     private route: ActivatedRoute,
@@ -18,6 +19,12 @@ export class CharacterDetailComponent implements OnInit {
 
   ngOnInit(): void {
     window.scrollTo(0, 0);
+
+    this.body = {
+      orderBy: "name",
+      limit: 10,
+      offset: 0,
+    };
 
     this.route.params.subscribe((params) => {
       this.characterId = params[`id`];
@@ -28,7 +35,7 @@ export class CharacterDetailComponent implements OnInit {
 
   getDetail() {
     this.charactersService
-      .getDetail(this.body, this.characterId)
+      .get(this.body, `/${this.characterId}`)
       .subscribe((data: any) => {});
   }
 }

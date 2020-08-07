@@ -8,6 +8,7 @@ import { ApiService } from "./services/api.service";
 import { HeaderComponent } from "./components/header/header.component";
 import { ComponentsModule } from "./components/components.module";
 import { FooterComponent } from "./components/footer/footer.component";
+import { HelperService } from "./services/helper.service";
 
 @NgModule({
   declarations: [AppComponent, HeaderComponent, FooterComponent],
@@ -17,7 +18,7 @@ import { FooterComponent } from "./components/footer/footer.component";
     HttpClientModule,
     ComponentsModule,
   ],
-  providers: [ApiService],
+  providers: [ApiService, HelperService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

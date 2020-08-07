@@ -22,9 +22,8 @@
     <div class="paginacao" *ngIf="!isLoading && characters.length > 0">
       <button type="button" [disabled]="body.offset === 0" (click)="prevPage()"><i
           class="fas fa-chevron-left"></i></button>
-      <small><b>{{ body.offset + 1}}</b> até <b>{{ size}}</b> de <b>{{ body.total}}</b></small>
-      <button type="button" [disabled]="body.total <= 12" (click)="nextPage()"><i
-          class="fas fa-chevron-right"></i></button>
+      <small><b>{{ body.offset + 1}}</b> até <b>{{ size}}</b> de <b>{{ total}}</b></small>
+      <button type="button" [disabled]="total <= 12" (click)="nextPage()"><i class="fas fa-chevron-right"></i></button>
     </div>
   </div>
 </section>

@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { CharactersService } from "src/app/services/characters.service";
 
 import { CharacterModel } from "src/app/models/character.model";
+import { Body } from "src/app/models/body.model";
 
 @Component({
   selector: "app-home",
@@ -13,8 +14,10 @@ export class HomeComponent implements OnInit {
   crescent: boolean = true;
   filtered: boolean = false;
   isLoading: boolean = true;
+
+  total: number;
   size: number = 10;
-  body: any;
+  body: Body;
 
   constructor(private charactersService: CharactersService) {}
 
@@ -22,9 +25,8 @@ export class HomeComponent implements OnInit {
     window.scrollTo(0, 0);
 
     this.body = {
-      total: 0,
       orderBy: "name",
-      limit: "10",
+      limit: 10,
       offset: 0,
     };
 
@@ -33,9 +35,9 @@ export class HomeComponent implements OnInit {
 
   loadCharacters() {
     this.isLoading = true;
-    this.charactersService.get(this.body).subscribe((data: any) => {
+    this.charactersService.get(this.body, "").subscribe((data: any) => {
       this.characters = data[`data`][`results`];
-      this.body.total = data[`data`][`total`];
+      this.total = data[`data`][`total`];
       setTimeout(() => {
         this.isLoading = false;
       }, 1000);
@@ -47,18 +49,18 @@ export class HomeComponent implements OnInit {
     if (searchTerm.length >= 3) {
       this.isLoading = true;
       this.filtered = true;
-      this.charactersService
-        .search(searchTerm, this.body)
-        .subscribe((data: any) => {
-          this.characters = data[`data`][`results`];
-          this.body.total = data[`data`][`total`];
-          this.size = this.body.total;
-          setTimeout(() => {
-            this.isLoading = false;
-          }, 1000);
-        });
+      this.body.nameStartsWith = searchTerm;
+      this.charactersService.get(this.body, "").subscribe((data: any) => {
+        this.characters = data[`data`][`results`];
+        this.total = data[`data`][`total`];
+        this.size = this.total;
+        setTimeout(() => {
+          this.isLoading = false;
+        }, 1000);
+      });
     } else if (searchTerm.length < 3 && this.filtered) {
       this.filtered = false;
+      this.body.nameStartsWith = null;
       this.loadCharacters();
     }
   }
@@ -86,6 +88,7 @@ export class HomeComponent implements OnInit {
   clearSearch() {
     this.filtered = false;
     this.size = 10;
+    this.body.nameStartsWith = null;
     this.loadCharacters();
   }
 }

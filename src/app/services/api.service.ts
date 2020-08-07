@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
 import { environment } from "src/environments/environment";
 import { Observable } from "rxjs";
 
@@ -17,7 +17,10 @@ export class ApiService {
     };
   }
 
-  public get(path: string): Observable<any> {
-    return this.http.get(`${environment.ROOT_URL}/${path}`, this.httpOptions);
+  public get(path: string, Params: HttpParams): Observable<any> {
+    return this.http.get(`${environment.ROOT_URL}/${path}`, {
+      params: Params,
+      headers: this.httpOptions,
+    });
   }
 }
