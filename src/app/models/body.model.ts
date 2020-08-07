@@ -1,6 +1,6 @@
 export class Body {
   limit: number;
-  orderBy: string = "";
+  orderBy?: string = "";
   offset: number;
   nameStartsWith?: string = "";
   ts?: number = 0;

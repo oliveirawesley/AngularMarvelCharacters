@@ -35,13 +35,15 @@ export class HomeComponent implements OnInit {
 
   loadCharacters() {
     this.isLoading = true;
-    this.charactersService.get(this.body, "").subscribe((data: any) => {
-      this.characters = data[`data`][`results`];
-      this.total = data[`data`][`total`];
-      setTimeout(() => {
-        this.isLoading = false;
-      }, 1000);
-    });
+    this.charactersService
+      .get({ body: this.body, characterId: "" })
+      .subscribe((data: any) => {
+        this.characters = data[`data`][`results`];
+        this.total = data[`data`][`total`];
+        setTimeout(() => {
+          this.isLoading = false;
+        }, 1000);
+      });
   }
 
   findACharacter(event) {
@@ -50,14 +52,16 @@ export class HomeComponent implements OnInit {
       this.isLoading = true;
       this.filtered = true;
       this.body.nameStartsWith = searchTerm;
-      this.charactersService.get(this.body, "").subscribe((data: any) => {
-        this.characters = data[`data`][`results`];
-        this.total = data[`data`][`total`];
-        this.size = this.total;
-        setTimeout(() => {
-          this.isLoading = false;
-        }, 1000);
-      });
+      this.charactersService
+        .get({ body: this.body, characterId: "" })
+        .subscribe((data: any) => {
+          this.characters = data[`data`][`results`];
+          this.total = data[`data`][`total`];
+          this.size = this.total;
+          setTimeout(() => {
+            this.isLoading = false;
+          }, 1000);
+        });
     } else if (searchTerm.length < 3 && this.filtered) {
       this.filtered = false;
       this.body.nameStartsWith = null;

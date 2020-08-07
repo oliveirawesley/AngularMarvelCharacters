@@ -2,6 +2,8 @@ import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import { CharactersService } from "src/app/services/characters.service";
 import { Body } from "src/app/models/body.model";
+import { CharacterModel } from "src/app/models/character.model";
+import { Comic } from "src/app/models/comic.model";
 
 @Component({
   selector: "app-character-detail",
@@ -10,7 +12,13 @@ import { Body } from "src/app/models/body.model";
 })
 export class CharacterDetailComponent implements OnInit {
   characterId: string;
+  characterDetail: CharacterModel = new CharacterModel();
+  comicsList: Comic = new Comic();
+
   body: Body;
+  comic: Comic;
+
+  isLoading: Boolean = true;
 
   constructor(
     private route: ActivatedRoute,
@@ -21,7 +29,6 @@ export class CharacterDetailComponent implements OnInit {
     window.scrollTo(0, 0);
 
     this.body = {
-      orderBy: "name",
       limit: 10,
       offset: 0,
     };
@@ -31,11 +38,23 @@ export class CharacterDetailComponent implements OnInit {
     });
 
     this.getDetail();
+    this.getComics();
   }
 
   getDetail() {
     this.charactersService
-      .get(this.body, `/${this.characterId}`)
-      .subscribe((data: any) => {});
+      .get({ body: this.body, characterId: `/${this.characterId}` })
+      .subscribe((data: any) => {
+        this.characterDetail = data[`data`][`results`][0];
+      });
+  }
+
+  getComics() {
+    this.charactersService
+      .getComics({ body: this.body, characterId: `/${this.characterId}` })
+      .subscribe((data: any) => {
+        this.comicsList = data[`data`][`results`];
+        this.isLoading = false;
+      });
   }
 }

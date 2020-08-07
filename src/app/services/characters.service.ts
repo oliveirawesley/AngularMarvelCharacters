@@ -16,7 +16,13 @@ import { HttpParams } from "@angular/common/http";
 export class CharactersService {
   constructor(private api: ApiService, private helperService: HelperService) {}
 
-  public get(body, characterId?: string): Observable<any> {
+  public get({
+    body,
+    characterId,
+  }: {
+    body;
+    characterId?: string;
+  }): Observable<any> {
     body.ts = Number(new Date());
     body.hash = `${Md5.hashStr(
       `${body.ts}${environment.PRIVATE_KEY}${environment.PUBLIC_KEY}`
@@ -26,5 +32,23 @@ export class CharactersService {
     let params = new HttpParams();
     params = this.helperService.GetParamsForPaged(params, body);
     return this.api.get(`characters${characterId}`, params);
+  }
+
+  public getComics({
+    body,
+    characterId,
+  }: {
+    body;
+    characterId?: string;
+  }): Observable<any> {
+    body.ts = Number(new Date());
+    body.hash = `${Md5.hashStr(
+      `${body.ts}${environment.PRIVATE_KEY}${environment.PUBLIC_KEY}`
+    )}`;
+    body.apikey = environment.PUBLIC_KEY;
+
+    let params = new HttpParams();
+    params = this.helperService.GetParamsForPaged(params, body);
+    return this.api.get(`characters${characterId}/comics`, params);
   }
 }
