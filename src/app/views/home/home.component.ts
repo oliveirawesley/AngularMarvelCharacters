@@ -46,7 +46,7 @@ export class HomeComponent implements OnInit {
 
   findACharacter(event) {
     const searchTerm = event.target.value;
-    if (searchTerm.length >= 3) {
+    if (searchTerm.length >= 3 && !this.filtered) {
       this.isLoading = true;
       this.filtered = true;
       this.body.nameStartsWith = searchTerm;
